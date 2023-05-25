@@ -2,6 +2,7 @@ package org.example.Presentation;
 
 import org.example.DataAccess.AbstractDAO;
 import org.example.DataAccess.ClientDAO;
+import org.example.Logic.ClientLogic;
 import org.example.Model.Client;
 
 import javax.swing.*;
@@ -101,10 +102,7 @@ public class ClientGui implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            ClientDAO clientDAO = new ClientDAO();
-            AbstractTable table = new AbstractTable();
-            List<Client> clients = clientDAO.findAll();
-            table.createTable(clients);
+            ClientLogic.buildClientTable();
         }
         if (e.getSource() == back) {
             MainMenu mainMenu = new MainMenu(clientAux);

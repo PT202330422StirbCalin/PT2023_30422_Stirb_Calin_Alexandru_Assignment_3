@@ -118,10 +118,7 @@ public class ProductGui implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            ProductDAO productDAO = new ProductDAO();
-            AbstractTable table = new AbstractTable();
-            List<Product> clients = productDAO.findAll();
-            table.createTable(clients);
+            ProductLogic.buildProductTable();
         }
         if (e.getSource() == back) {
             MainMenu mainMenu = new MainMenu(clientAux);

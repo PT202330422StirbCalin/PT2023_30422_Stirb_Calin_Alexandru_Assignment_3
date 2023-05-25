@@ -116,10 +116,7 @@ public class OrderGui implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            OrderDAO orderDAO = new OrderDAO();
-            AbstractTable table = new AbstractTable();
-            List<Order> clients = orderDAO.findAll();
-            table.createTable(clients);
+            OrderLogic.buildOrderTable();
         }
         if (e.getSource() == back) {
             MainMenu mainMenu = new MainMenu(clientAux);

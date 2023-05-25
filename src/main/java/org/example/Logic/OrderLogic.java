@@ -4,6 +4,7 @@ import org.example.DataAccess.OrderDAO;
 import org.example.DataAccess.ProductDAO;
 import org.example.Model.Order;
 import org.example.Model.Product;
+import org.example.Presentation.AbstractTable;
 
 import java.util.List;
 /**
@@ -45,6 +46,12 @@ public class OrderLogic {
             order.setDescription("Insufficient stock: " + product.getStock());
         }
         return order;
+    }
+    public static void buildOrderTable(){
+        OrderDAO orderDAO = new OrderDAO();
+        AbstractTable table = new AbstractTable();
+        List<Order> clients = orderDAO.findAll();
+        table.createTable(clients);
     }
 }
 

@@ -2,6 +2,7 @@ package org.example.Logic;
 
 import org.example.DataAccess.ClientDAO;
 import org.example.Model.Client;
+import org.example.Presentation.AbstractTable;
 import org.example.Presentation.LoginGui;
 
 import java.util.List;
@@ -86,5 +87,11 @@ public class ClientLogic {
             gui.success.setText("Enter the necessary information");
         }
 }
+    public static void buildClientTable(){
+        ClientDAO clientDAO = new ClientDAO();
+        AbstractTable table = new AbstractTable();
+        List<Client> clients = clientDAO.findAll();
+        table.createTable(clients);
+    }
 }
 

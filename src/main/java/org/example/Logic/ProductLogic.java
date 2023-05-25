@@ -2,6 +2,7 @@ package org.example.Logic;
 
 import org.example.DataAccess.ProductDAO;
 import org.example.Model.Product;
+import org.example.Presentation.AbstractTable;
 
 import java.util.List;
 
@@ -65,6 +66,13 @@ public class ProductLogic {
             int newStock = product.getStock()-value;
             productDAO.update("stock",newStock,product.getStock());
         }
+    }
+
+    public static void buildProductTable(){
+        ProductDAO productDAO = new ProductDAO();
+        AbstractTable table = new AbstractTable();
+        List<Product> clients = productDAO.findAll();
+        table.createTable(clients);
     }
 
 }
