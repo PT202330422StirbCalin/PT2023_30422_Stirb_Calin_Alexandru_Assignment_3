@@ -40,7 +40,7 @@ public class OrderLogic {
             order.setDescription(update);
             order.setPrice(order.getPrice() + price);
             product.setStock(product.getStock() - nrOf);
-            ProductLogic.UpdateStockAfterOrder(product.getId(), nrOf);
+            ProductLogic.updateStockAfterOrder(product.getId(), nrOf);
         } else {
             order.setDescription("Insufficient stock: " + product.getStock());
         }

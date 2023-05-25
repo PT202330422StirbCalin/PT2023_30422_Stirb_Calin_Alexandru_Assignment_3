@@ -1,13 +1,8 @@
 package org.example.Logic;
 
-import org.example.Connection.ConnectionFactory;
 import org.example.DataAccess.ProductDAO;
-import org.example.Model.Client;
 import org.example.Model.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -62,7 +57,7 @@ public class ProductLogic {
      * @param id    the ID of the product
      * @param value the value by which to decrease the stock
      */
-    public static void UpdateStockAfterOrder(int id ,int value){
+    public static void updateStockAfterOrder(int id , int value){
         ProductDAO productDAO = new ProductDAO();
         List<Product> products = productDAO.findBy("id",id);
         if(!products.isEmpty()){
