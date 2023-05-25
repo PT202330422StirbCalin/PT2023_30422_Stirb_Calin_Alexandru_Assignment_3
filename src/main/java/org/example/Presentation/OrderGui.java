@@ -1,5 +1,6 @@
 package org.example.Presentation;
 
+import org.example.DataAccess.ClientDAO;
 import org.example.DataAccess.OrderDAO;
 import org.example.DataAccess.ProductDAO;
 import org.example.Logic.OrderLogic;
@@ -115,7 +116,10 @@ public class OrderGui implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            createTable();
+            OrderDAO orderDAO = new OrderDAO();
+            AbstractTable table = new AbstractTable();
+            List<Order> clients = orderDAO.findAll();
+            table.createTable(clients);
         }
         if (e.getSource() == back) {
             MainMenu mainMenu = new MainMenu(clientAux);
@@ -145,26 +149,6 @@ public class OrderGui implements ActionListener{
             orderDAO.insert(ord);
             success.setText("Order successfully placed");
         }
-    }
-    private void createTable(){
-        OrderDAO orderDAO = new OrderDAO();
-        List<Order> products = orderDAO.findAll();
-        String[] columnNames = {"id","usernname","price","description"};
-        Object[][] data = new Object[products.size()][columnNames.length];
-        for(int i =0;i<products.size();i++){
-            Order product = products.get(i);
-            data[i][0] = product.getId();
-            data[i][1] = product.getUsername();
-            data[i][2] = product.getPrice();
-            data[i][3] = product.getDescription();
-        }
-        DefaultTableModel model = new DefaultTableModel(data,columnNames);
-        JTable table = new JTable(model);
-        JFrame frame = new JFrame("Product Table");
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.getContentPane().add(new JScrollPane(table));
-        frame.pack();
-        frame.setVisible(true);
     }
 
 }

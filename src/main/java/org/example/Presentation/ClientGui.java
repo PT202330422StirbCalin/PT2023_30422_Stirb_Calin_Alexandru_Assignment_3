@@ -1,5 +1,6 @@
 package org.example.Presentation;
 
+import org.example.DataAccess.AbstractDAO;
 import org.example.DataAccess.ClientDAO;
 import org.example.Model.Client;
 
@@ -100,7 +101,10 @@ public class ClientGui implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            createTable();
+            ClientDAO clientDAO = new ClientDAO();
+            AbstractTable table = new AbstractTable();
+            List<Client> clients = clientDAO.findAll();
+            table.createTable(clients);
         }
         if (e.getSource() == back) {
             MainMenu mainMenu = new MainMenu(clientAux);
@@ -135,24 +139,6 @@ public class ClientGui implements ActionListener{
      * Creates a table to display client information.
      * The table includes columns for id, username, and password.
      */
-    private void createTable(){
-        ClientDAO clientDAO = new ClientDAO();
-        List<Client> clients = clientDAO.findAll();
-        String[] columnNames = {"id","username","password"};
-        Object[][] data = new Object[clients.size()][columnNames.length];
-        for(int i =0;i<clients.size();i++){
-            Client client1 = clients.get(i);
-            data[i][0] = client1.getId();
-            data[i][1] = client1.getUsername();
-            data[i][2] = client1.getPassword();
-        }
-        DefaultTableModel model = new DefaultTableModel(data,columnNames);
-        JTable table = new JTable(model);
-        JFrame frame = new JFrame("Client Table");
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.getContentPane().add(new JScrollPane(table));
-        frame.pack();
-        frame.setVisible(true);
-    }
+
 }
 

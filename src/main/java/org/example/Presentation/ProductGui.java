@@ -1,9 +1,11 @@
 package org.example.Presentation;
 
 import org.example.DataAccess.ClientDAO;
+import org.example.DataAccess.OrderDAO;
 import org.example.DataAccess.ProductDAO;
 import org.example.Logic.ProductLogic;
 import org.example.Model.Client;
+import org.example.Model.Order;
 import org.example.Model.Product;
 
 import javax.swing.*;
@@ -116,7 +118,10 @@ public class ProductGui implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == list) {
-            createTable();
+            ProductDAO productDAO = new ProductDAO();
+            AbstractTable table = new AbstractTable();
+            List<Product> clients = productDAO.findAll();
+            table.createTable(clients);
         }
         if (e.getSource() == back) {
             MainMenu mainMenu = new MainMenu(clientAux);
@@ -161,26 +166,6 @@ public class ProductGui implements ActionListener{
             success.setText("Product successfully inserted");
 
         }
-    }
-    private void createTable(){
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> products = productDAO.findAll();
-        String[] columnNames = {"id","name","price","stock"};
-        Object[][] data = new Object[products.size()][columnNames.length];
-        for(int i =0;i<products.size();i++){
-            Product product = products.get(i);
-            data[i][0] = product.getId();
-            data[i][1] = product.getName();
-            data[i][2] = product.getPrice();
-            data[i][3] = product.getStock();
-        }
-        DefaultTableModel model = new DefaultTableModel(data,columnNames);
-        JTable table = new JTable(model);
-        JFrame frame = new JFrame("Product Table");
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.getContentPane().add(new JScrollPane(table));
-        frame.pack();
-        frame.setVisible(true);
     }
     private void createInsertFrame(){
         ProductDAO productDAO = new ProductDAO();
